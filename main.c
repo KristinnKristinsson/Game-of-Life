@@ -3,11 +3,18 @@
 #include <math.h>
 #include <string.h>
 
-#define ROWS 10
-#define COLUMNS 10
+/*Extra headers design for GoL*/
+#include "constantsGame.h"
+#include "rules.h"
+
+char rngSeed ();
+void iterate (char *newIteration);
+char *storeLastIteration (char *newIteration);
+char *storeLastIteration (char *newIteration);
 
 int main()
 {
+    char c;   
     int quit = 0;
     while (!quit)
     {
@@ -23,7 +30,10 @@ int main()
         {
             printf("|");
             for (int i = 0; i < COLUMNS; i++)
-                printf(".");
+            {
+                char firstIteration = rngSeed();
+                printf("%c", firstIteration);
+            }
             printf("|\n");
         }
 
@@ -31,7 +41,6 @@ int main()
         for (int i = 0; i < COLUMNS; i++)
             printf("-");
         printf("8\n");
-
         //move cursor to top
         printf("\e[%iA", ROWS + 2);
     }
