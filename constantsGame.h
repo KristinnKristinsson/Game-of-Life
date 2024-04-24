@@ -1,6 +1,6 @@
 /*The Grid*/
-#define ROWS 10
-#define COLUMNS 10
+#define ROWS 75
+#define COLUMNS 35
 
 /*State of Cells*/
 #define ALIVE 'X'

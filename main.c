@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string.h>
 
 /*Extra headers design for GoL*/
@@ -8,15 +7,15 @@
 #include "rules.h"
 
 char rngSeed ();
-
+char updateState (int i, int j, char lastIteration[ROWS][COLUMNS]);
 
 int main()
 {
     char lastIteration[ROWS][COLUMNS];
+    char newIteration[ROWS][COLUMNS];
     char c;
-    char *pCell = &c;
     
-    int maxIt = 10;
+    int maxIt = 50;
     int thisIt = 0;
     
     //Hide cursor
@@ -57,15 +56,22 @@ int main()
         for (int j = 0; j < ROWS; j++)
             printf("-");
         printf("8\n");
-        //printf("this is the first char: %c", lastIteration[0]);
         for (int i = 0; i < COLUMNS; i++)
         {
             printf("|");
             for (int j = 0; j < ROWS; j++)
             {
-                printf("%c", lastIteration[i][j]);
+                newIteration[i][j] = updateState(i, j, lastIteration);
+                printf("%c", newIteration[i][j]);
             }
             printf("|\n");
+        }
+        for (int i = 0; i < COLUMNS; i++)
+        {
+            for (int j = 0; j < ROWS; j++)
+            {
+                lastIteration[i][j] = newIteration[i][j];
+            }
         }
 
         printf("8");
@@ -74,13 +80,16 @@ int main()
         printf("8\n");
         
         thisIt++;
-        printf("%.*s", ROWS +2, "************************************************************************************");
-        printf("\nNext iteration, press any key\n");
-        printf("%.*s", ROWS +2, "************************************************************************************");
-        getchar();
+        if(thisIt == maxIt)
+        {
+            printf("%.*s", ROWS +2, "************************************************************************************");
+            printf("\nNext iteration, press any key\n");
+            printf("%.*s", ROWS +2, "************************************************************************************");
+            getchar();
+        }
         //clear screen
         printf("\e[1;1H\e[2J");
 
-    }while(thisIt < maxIt);
+    }while(thisIt <= maxIt);
     return 0;
 }
