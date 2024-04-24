@@ -4,8 +4,7 @@
 #include <time.h>
 #include "constantsGame.h"
 
-
-char rngSeed ()
+char rngseed()
 {
     char cell;
     int rng = rand() % 10;
